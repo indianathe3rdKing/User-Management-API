@@ -77,5 +77,40 @@ async function getAllusers(
 }
 
 async function createUser(event:APIGatewayProxyEventV2):Promise<APIGatewayProxyResultV2> {
+    return{
+        statusCode:201,
+        body:JSON.stringify({
+            message: "User created successfully"
+        })
+    }
+    
+}
+
+async function updateUser(event:APIGatewayProxyEventV2,userId:string):Promise<APIGatewayProxyResultV2> {
+    return{
+        statusCode:200,
+        body: JSON.stringify({
+            message: `User with ID ${userId} updated successfully`
+        })
+    }
+}
+
+async function getUser(userId:string):Promise<APIGatewayProxyResultV2> {
+    return{
+        statusCode: 200,
+        body: JSON.stringify({
+            message: `Get user with ID ${userId}`,
+        })
+    }
+    
+}
+
+async function deleteUser(userId:string):Promise<APIGatewayProxyResultV2> {
+    return{
+        statusCode:200,
+        body: JSON.stringify({
+            message: `User with ID ${userId} has been deleted successfully`,
+        })
+    }
     
 }

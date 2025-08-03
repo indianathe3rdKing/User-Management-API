@@ -1,6 +1,4 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
-import { create } from "domain";
-import { eventNames } from "process";
 
 export const handler = async (
   event: APIGatewayProxyEventV2
@@ -12,7 +10,7 @@ export const handler = async (
     if (path === "/users") {
       switch (method) {
         case "GET":
-          return getAllusers(event);
+          return getAllUsers(event);
         case "POST":
           return createUser(event);
         default:
@@ -69,7 +67,7 @@ export const handler = async (
   }
 };
 
-async function getAllusers(
+async function getAllUsers(
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> {
   return {

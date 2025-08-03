@@ -1,13 +1,12 @@
-import { he } from "@faker-js/faker";
 import * as cdk from "aws-cdk-lib";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
 import path from "path";
-import { handler } from "../src/lambda/handler";
+
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as apigateway from "aws-cdk-lib/aws-apigatewayv2";
 import * as apigateway_integrations from "aws-cdk-lib/aws-apigatewayv2-integrations";
-import { Method } from "aws-cdk-lib/aws-apigateway";
+
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class UsersManagementApiStack extends cdk.Stack {
@@ -35,12 +34,12 @@ export class UsersManagementApiStack extends cdk.Stack {
       {
         path: "/users",
         method: apigateway.HttpMethod.GET,
-        name: "GetAllUsers",
+        name: "getAllUsers",
       },
       {
         path: "/users",
         method: apigateway.HttpMethod.POST,
-        name: "CreateUser",
+        name: "createUser",
       },
       {
         path: "/users/{id}",

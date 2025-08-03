@@ -6,11 +6,18 @@ import path from "path";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as apigateway from "aws-cdk-lib/aws-apigatewayv2";
 import * as apigateway_integrations from "aws-cdk-lib/aws-apigatewayv2-integrations";
+import { DynamoDBStack } from "./lib/dynamodb-stack";
 
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+interface UsersManagementApiStackProps extends cdk.StackProps {
+  dynamodbStack: DynamoDBStack;
+}
 
 export class UsersManagementApiStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(
+    scope: Construct,
+    id: string,
+    props: UsersManagementApiStackProps
+  ) {
     super(scope, id, props);
 
     //Create a single lambda function to handle all user management operations
@@ -19,7 +26,14 @@ export class UsersManagementApiStack extends cdk.Stack {
       entry: path.join(__dirname, "../src/lambda/handler.ts"),
       handler: "handler",
       functionName: `${this.stackName}-user-handler`,
+      environment: {
+        TABLE_NAME: props.dynamodbStack.userTable.tableName,
+      },
     });
+
+    //Grant the lambda function permissions to read/write to the DynamoDB table
+    props.dynamodbStack.userTable.grantReadWriteData(userHandler);
+
     const httpApi = new apigateway.HttpApi(this, "UserApi", {
       apiName: "User API",
       description: "User management API",

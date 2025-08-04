@@ -6,10 +6,10 @@ import path from "path";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as apigateway from "aws-cdk-lib/aws-apigatewayv2";
 import * as apigateway_integrations from "aws-cdk-lib/aws-apigatewayv2-integrations";
-import { DynamoDBStack } from "./lib/dynamodb-stack";
+import { DynamoDBStackV2 } from "./lib/dynamodbV2-stack";
 
 interface UsersManagementApiStackProps extends cdk.StackProps {
-  dynamodbStack: DynamoDBStack;
+  dynamodbStack: DynamoDBStackV2;
 }
 
 export class UsersManagementApiStack extends cdk.Stack {
